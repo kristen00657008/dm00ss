@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dm00ss/style/theme_provider.dart';
 import 'package:dm00ss/style/theme_style.dart';
-import 'package:dm00ss/ui/login_page/login_page_ui_data.dart';
+import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../style/theme_provider.dart';
 
 class BackgroundView extends StatefulWidget {
   final LoginPageUIData loginPageUIData;

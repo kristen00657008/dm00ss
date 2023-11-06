@@ -1,28 +1,35 @@
+import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
 import 'package:dm00ss/style/theme_provider.dart';
 import 'package:dm00ss/style/theme_style.dart';
+import 'package:dm00ss/ui/fast_news/fast_news_page.dart';
+import 'package:dm00ss/ui/member/member_query_page/member_query_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as pro;
 
 import 'drawer_view.dart';
-import 'news_view.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+final pageProvider = StateProvider<PageName>((ref) => PageName.FastNewsPage);
+
+class DefaultPage extends StatefulWidget {
+  const DefaultPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<DefaultPage> createState() => _DefaultPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DefaultPageState extends State<DefaultPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
+    return pro.Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: context.read<ThemeProvider>().currentAppTheme.backgroundColor,
+        systemNavigationBarColor:
+            context.read<ThemeProvider>().currentAppTheme.scaffoldColor2,
       ));
       return Container(
         decoration: BoxDecoration(
@@ -45,26 +52,28 @@ class _HomePageState extends State<HomePage> {
                 color: themeProvider.currentAppTheme.backgroundColor,
               ),
             ),
-            Scaffold(
-              backgroundColor: Colors.transparent,
-              drawerEnableOpenDragGesture: false,
-              drawer: DrawerView(),
-              appBar: AppBar(
-                title: Text("直銷管理系統"),
-                centerTitle: true,
-                actions: [buildMenu()],
+            Consumer(builder: (context, ref, _) {
+              return Scaffold(
                 backgroundColor: Colors.transparent,
-                foregroundColor: Colors.white,
-                iconTheme: IconThemeData(color: Colors.white),
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  systemNavigationBarColor: context.read<ThemeProvider>().currentAppTheme.backgroundColor,
+                drawerEnableOpenDragGesture: false,
+                drawer: DrawerView(),
+                appBar: AppBar(
+                  title: Text(getPageTitle(ref.watch(pageProvider))),
+                  centerTitle: true,
+                  actions: [buildMenu()],
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: Colors.white,
+                  iconTheme: IconThemeData(color: Colors.white),
+                  systemOverlayStyle: SystemUiOverlayStyle(
+                    systemNavigationBarColor: context
+                        .read<ThemeProvider>()
+                        .currentAppTheme
+                        .backgroundColor,
+                  ),
                 ),
-              ),
-              body: Padding(
-                padding: const EdgeInsets.only(bottom: 15.0),
-                child: NewsView(),
-              ),
-            ),
+                body: getPage(ref.watch(pageProvider)),
+              );
+            }),
           ],
         ),
       );
@@ -124,11 +133,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildColorGroup() {
-    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final themeProvider =
+        pro.Provider.of<ThemeProvider>(context, listen: false);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
+        pro.Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
           return Container(
             height: 50,
             width: context.read<ScreenSize>().screenWidth * 0.35,
@@ -161,5 +171,27 @@ class _HomePageState extends State<HomePage> {
         )
       ],
     );
+  }
+
+  Widget getPage(PageName pageName) {
+    switch (pageName) {
+      case PageName.FastNewsPage:
+        return FastNewsPage();
+      case PageName.MemberQueryPage:
+        return MemberQueryPage();
+      default:
+        return Text("Error Page");
+    }
+  }
+
+  String getPageTitle(PageName pageName) {
+    switch (pageName) {
+      case PageName.FastNewsPage:
+        return "最新消息";
+      case PageName.MemberQueryPage:
+        return "會員查詢";
+      default:
+        return "錯誤標題";
+    }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:dm00ss/ui/login_page/login_page_ui_data.dart';
+import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 

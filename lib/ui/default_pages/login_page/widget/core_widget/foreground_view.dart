@@ -1,10 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dm00ss/ui/login_page/login_page_ui_data.dart';
-import 'package:dm00ss/ui/login_page/widget/custom_widget/custom_dropdown_button.dart';
-import 'package:dm00ss/ui/login_page/widget/custom_widget/custom_field.dart';
-import 'package:dm00ss/ui/login_page/widget/custom_widget/custom_text_field.dart';
+import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
+import 'package:dm00ss/ui/default_pages/login_page/widget/custom_widget/custom_field.dart';
+import 'package:dm00ss/ui/default_pages/login_page/widget/custom_widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../custom_widget/custom_dropdown_button.dart';
 
 class ForegroundView extends StatefulWidget {
   final LoginPageUIData loginPageUIData;

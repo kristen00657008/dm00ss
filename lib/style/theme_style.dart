@@ -9,15 +9,18 @@ class ThemeStyle extends Equatable {
   final Color scaffoldColor1;
   final Color scaffoldColor2;
   final Color backgroundColor;
+  final Color fieldBackgroundColor;
 
-  const ThemeStyle(
-      {required this.name,
-      required this.primary,
-      required this.primaryContainer,
-      required this.secondary,
-      required this.scaffoldColor1,
-      required this.scaffoldColor2,
-      required this.backgroundColor});
+  const ThemeStyle({
+    required this.name,
+    required this.primary,
+    required this.primaryContainer,
+    required this.secondary,
+    required this.scaffoldColor1,
+    required this.scaffoldColor2,
+    required this.backgroundColor,
+    required this.fieldBackgroundColor,
+  });
 
   factory ThemeStyle.fromJson(Map<String, dynamic> parsedJson) {
     return ThemeStyle(
@@ -30,6 +33,8 @@ class ThemeStyle extends Equatable {
       scaffoldColor2: Color(int.parse(parsedJson['scaffoldColor2'], radix: 16)),
       backgroundColor:
           Color(int.parse(parsedJson['backgroundColor'], radix: 16)),
+      fieldBackgroundColor:
+          Color(int.parse(parsedJson['fieldBackgroundColor'], radix: 16)),
     );
   }
 
@@ -42,6 +47,7 @@ class ThemeStyle extends Equatable {
       'scaffoldColor1': scaffoldColor1.value.toRadixString(16),
       'scaffoldColor2': scaffoldColor2.value.toRadixString(16),
       'backgroundColor': backgroundColor.value.toRadixString(16),
+      'fieldBackgroundColor': fieldBackgroundColor.value.toRadixString(16),
     };
   }
 
@@ -58,6 +64,7 @@ final List<ThemeStyle> themeData = [
     scaffoldColor1: const Color(0xFF006064),
     scaffoldColor2: const Color(0xFF0D47A1),
     backgroundColor: const Color(0xFFF5F5FF),
+    fieldBackgroundColor: const Color(0xFFEDF1FE),
   ),
   ThemeStyle(
     name: "紅色",
@@ -67,6 +74,7 @@ final List<ThemeStyle> themeData = [
     scaffoldColor1: const Color(0xFFC2185B),
     scaffoldColor2: const Color(0xFFD32F2F),
     backgroundColor: const Color(0xFFFFF5F5),
+    fieldBackgroundColor: const Color(0xFFFEEDEE),
   ),
   ThemeStyle(
     name: "綠色",
@@ -76,6 +84,7 @@ final List<ThemeStyle> themeData = [
     scaffoldColor1: const Color(0xFF33691E),
     scaffoldColor2: const Color(0xFF014E40),
     backgroundColor: const Color(0xFFF5FFF5),
+    fieldBackgroundColor: const Color(0xFFECFAF0),
   ),
   ThemeStyle(
     name: "紫色",
@@ -85,5 +94,6 @@ final List<ThemeStyle> themeData = [
     scaffoldColor1: const Color(0xFFA5668B),
     scaffoldColor2: const Color(0xFF69306D),
     backgroundColor: const Color(0xFFFFF3FF),
+    fieldBackgroundColor: const Color(0xFFFBEAFC),
   ),
 ];

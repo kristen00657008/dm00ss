@@ -1,24 +1,27 @@
+import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
 import 'package:dm00ss/style/theme_provider.dart';
+import 'package:dm00ss/ui/default_pages/default_page/default_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as pro;
 
 import 'widget/custom_expansion_tile.dart';
 import 'widget/custom_list_tile.dart';
 
-class DrawerView extends StatefulWidget {
+class DrawerView extends ConsumerStatefulWidget {
   const DrawerView({super.key});
 
   @override
-  State<DrawerView> createState() => _DrawerViewState();
+  ConsumerState<DrawerView> createState() => _DrawerViewState();
 }
 
-class _DrawerViewState extends State<DrawerView> {
+class _DrawerViewState extends ConsumerState<DrawerView> {
   @override
   Widget build(BuildContext context) {
-    final screenSize = Provider.of<ScreenSize>(context);
-    return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
+    final screenSize = pro.Provider.of<ScreenSize>(context);
+    return pro.Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
       return Container(
         width: screenSize.screenWidth * 0.8,
         decoration: BoxDecoration(
@@ -31,11 +34,11 @@ class _DrawerViewState extends State<DrawerView> {
               Expanded(
                 child: ListView(
                   padding: EdgeInsets.zero,
-                  children: const [
+                  children: [
                     ExpansionTile(
                       shape: Border(),
                       title: Text('使用者管理'),
-                      children: [
+                      children: const [
                         CustomListTile(
                           title: '使用者基本資料維護',
                         ),
@@ -55,10 +58,14 @@ class _DrawerViewState extends State<DrawerView> {
                       children: [
                         CustomListTile(
                           title: '會員查詢',
+                          onTap: () {
+                            context.pop();
+                            ref.read(pageProvider.notifier).state = PageName.MemberQueryPage;
+                          },
                         ),
                         CustomExpansionTile(
                           title: '會員基本資料',
-                          children: [
+                          children: const [
                             CustomListTile(
                               title: '常用備註設定',
                             ),
@@ -69,7 +76,7 @@ class _DrawerViewState extends State<DrawerView> {
                         ),
                         CustomExpansionTile(
                           title: '業績組織查詢',
-                          children: [
+                          children: const [
                             CustomListTile(
                               title: '會員階級設定',
                             ),
@@ -124,8 +131,14 @@ class _DrawerViewState extends State<DrawerView> {
               size: 30,
             ),
           ),
-          Text(
-            "直銷管理系統",
+          InkWell(
+            onTap: () {
+              context.pop();
+              ref.read(pageProvider.notifier).state = PageName.FastNewsPage;
+            },
+            child: Text(
+              "直銷管理系統",
+            ),
           ),
           SizedBox(width: 48),
         ],

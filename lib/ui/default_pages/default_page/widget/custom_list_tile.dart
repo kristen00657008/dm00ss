@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
-  const CustomListTile({super.key, required this.title});
+  final VoidCallback? onTap;
+  const CustomListTile({super.key, required this.title, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +12,7 @@ class CustomListTile extends StatelessWidget {
       child: ListTile(
         leading: null,
         title: Text(title),
+        onTap: onTap,
       ),
     );
   }

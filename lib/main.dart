@@ -1,20 +1,21 @@
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/share_preference/shared_preference_service.dart';
 import 'package:dm00ss/style/theme_provider.dart';
+import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' as river;
 import 'package:provider/provider.dart';
 
 import 'screen_size.dart';
-import 'ui/login_page/login_page_ui_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SharedPreferencesService.instance.init();
 
-  runApp(
-    MultiProvider(
+  runApp(river.ProviderScope(
+    child: MultiProvider(
       providers: [
         ChangeNotifierProvider<ScreenSize>.value(
           value: ScreenSize(),
@@ -25,7 +26,7 @@ void main() async {
       ],
       child: const MyApp(),
     ),
-  );
+  ));
 }
 
 class MyApp extends StatefulWidget {

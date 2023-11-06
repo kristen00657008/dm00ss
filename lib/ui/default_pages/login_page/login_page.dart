@@ -1,11 +1,11 @@
-import 'package:dm00ss/screen_size.dart';
 import 'package:dm00ss/style/theme_provider.dart';
-import 'package:dm00ss/ui/login_page/login_page_ui_data.dart';
-import 'package:dm00ss/ui/login_page/widget/core_widget/background_view.dart';
-import 'package:dm00ss/ui/login_page/widget/core_widget/foreground_view.dart';
+import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import 'widget/core_widget/background_view.dart';
+import 'widget/core_widget/foreground_view.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

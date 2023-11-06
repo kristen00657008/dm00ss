@@ -3,14 +3,14 @@ import 'package:dm00ss/style/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NewsView extends StatefulWidget {
-  const NewsView({super.key});
+class FastNewsPage extends StatefulWidget {
+  const FastNewsPage({super.key});
 
   @override
-  State<NewsView> createState() => _NewsViewState();
+  State<FastNewsPage> createState() => _FastNewsPageState();
 }
 
-class _NewsViewState extends State<NewsView> {
+class _FastNewsPageState extends State<FastNewsPage> {
   @override
   Widget build(BuildContext context) {
     ScreenSize screenSize = Provider.of<ScreenSize>(context);
