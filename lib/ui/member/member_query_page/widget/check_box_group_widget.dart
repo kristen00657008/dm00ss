@@ -25,48 +25,46 @@ class _CheckBoxGroupWidgetState extends State<CheckBoxGroupWidget> {
   Widget build(BuildContext context) {
     return pro.Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
-        return Container(
-          margin: EdgeInsets.only(top: 10),
-          padding: EdgeInsets.only(left: 10, top: 10, right: 10),
-          decoration: BoxDecoration(border: Border(
-            top: BorderSide(color: Colors.black12)
-          )),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded( child: Text(widget.title)),
-              Expanded(
-                child: Wrap(
-                  alignment: WrapAlignment.spaceBetween,
-                  direction: Axis.vertical,
-                  children: widget.dataList.asMap().entries.map((e) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Checkbox(
-                            checkColor: Colors.white,
-                            activeColor: themeProvider.currentAppTheme.secondary,
-                            value: widget.selectedOptions[e.key],
-                            onChanged: (value) {
-                              setState(() {
-                                widget.selectedOptions[e.key] = value;
-                              });
-                            },
-                          ),
-                          Text(e.value)
-                        ],
-                      ),
-                    );
-                  }).toList(),
-                ),
+      return Container(
+        margin: EdgeInsets.only(top: 10),
+        padding: EdgeInsets.only(left: 10, top: 10, right: 10),
+        decoration: BoxDecoration(
+            border: Border(top: BorderSide(color: Colors.black12))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: Text(widget.title)),
+            Expanded(
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                direction: Axis.vertical,
+                children: widget.dataList.asMap().entries.map((e) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Checkbox(
+                          checkColor: Colors.white,
+                          activeColor: themeProvider.currentAppTheme.secondary,
+                          value: widget.selectedOptions[e.key],
+                          onChanged: (value) {
+                            setState(() {
+                              widget.selectedOptions[e.key] = value;
+                            });
+                          },
+                        ),
+                        Text(e.value)
+                      ],
+                    ),
+                  );
+                }).toList(),
               ),
-            ],
-          ),
-        );
-      }
-    );
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

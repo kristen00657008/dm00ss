@@ -21,10 +21,11 @@ class OneDropdownButtonWidget extends StatelessWidget {
       padding: EdgeInsets.only(left: 10, top: 10, right: 10),
       child: Row(
         children: [
-          Expanded(
-            flex: 2,
-            child: Text(title),
-          ),
+          if (title.isNotEmpty)
+            Expanded(
+              flex: 2,
+              child: Text(title),
+            ),
           Expanded(
             flex: 3,
             child: CustomDropdownButton(

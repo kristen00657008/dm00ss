@@ -1,4 +1,4 @@
-import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:dm00ss/ui/member/member_query_page/custom_widget/custom_text_field.dart';
 import 'package:dm00ss/ui/member/member_query_page/widget/more_button_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +6,8 @@ class DoubleTextFieldWidget extends StatelessWidget {
   final String title;
   final bool showMoreButton1;
   final bool showMoreButton2;
+  final TextEditingController controller1;
+  final TextEditingController controller2;
   final VoidCallback? moreButton1Callback;
   final VoidCallback? moreButton2Callback;
   final bool twoLine;
@@ -15,6 +17,8 @@ class DoubleTextFieldWidget extends StatelessWidget {
     required this.title,
     required this.showMoreButton1,
     required this.showMoreButton2,
+    required this.controller1,
+    required this.controller2,
     this.moreButton1Callback,
     this.moreButton2Callback,
     this.twoLine = true,
@@ -34,10 +38,11 @@ class DoubleTextFieldWidget extends StatelessWidget {
             )
           : Row(
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Text(title),
-                ),
+                if (title.isNotEmpty)
+                  Expanded(
+                    flex: 2,
+                    child: Text(title),
+                  ),
                 Expanded(
                   flex: 3,
                   child: buildFields(),
@@ -56,18 +61,11 @@ class DoubleTextFieldWidget extends StatelessWidget {
             children: [
               Expanded(
                 flex: 4,
-                child: AutoSizeTextField(
-                  controller: TextEditingController(),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    isDense: true,
-                    contentPadding: const EdgeInsets.all(15),
-                  ),
+                child: CustomTextField(
+                  controller: controller1,
                 ),
               ),
-              if(showMoreButton1)
+              if (showMoreButton1)
                 Expanded(
                   flex: 1,
                   child: MoreButton(
@@ -89,18 +87,11 @@ class DoubleTextFieldWidget extends StatelessWidget {
             children: [
               Expanded(
                 flex: 4,
-                child: AutoSizeTextField(
-                  controller: TextEditingController(),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    isDense: true,
-                    contentPadding: const EdgeInsets.all(15),
-                  ),
+                child: CustomTextField(
+                  controller: controller2,
                 ),
               ),
-              if(showMoreButton2)
+              if (showMoreButton2)
                 Expanded(
                   flex: 1,
                   child: MoreButton(
