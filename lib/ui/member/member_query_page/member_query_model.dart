@@ -40,11 +40,11 @@ class MemberQueryModel {
 
   /// 會員狀況
   final memberStatusValues = ["正式", "停權", "開除", "移轉"];
-  final List<bool> selectedMemberStatus = List.generate(4, (index) => true);
+  List<bool> selectedMemberStatus = List.generate(4, (index) => true);
 
   /// 入會方式
   final joinMethodValues = ["消費型會員", "一般"];
-  final List<bool> selectedJoinMethod = List.generate(2, (index) => true);
+  List<bool> selectedJoinMethod = List.generate(2, (index) => true);
 
   /// 性別
   final List<String> genderValues = ["ALL", "", "男", "女"];
@@ -118,7 +118,7 @@ class MemberQueryModel {
 
   /// 特殊設定
   final specialSettingsValues = ["郵件註記", "電訪註記", "法人代扣稅額", "法人零稅率"];
-  final List<bool> selectedSpecialSettingsMethod =
+  List<bool> selectedSpecialSettingsMethod =
       List.generate(4, (index) => false);
 
   /// 排序
@@ -211,5 +211,132 @@ class MemberQueryModel {
     ageController2 = TextEditingController();
     bankAccountController = TextEditingController();
     bankController = TextEditingController();
+  }
+
+  void search(WidgetRef ref) {
+    print("""
+    會員編號: ${memberIdController1.text} ~  ${memberIdController2.text}
+    姓名: ${memberNameController.text}
+    身分證: ${idController.text}
+    推薦人: ${recommendController.text}
+    安置人: ${parentMemberController.text}
+    地區別: ${ref.read(selectedAreaProvider.notifier).state}
+    會員型態: ${ref.read(selectedMemberTypeProvider.notifier).state}
+    階級: ${ref.read(selectedLevelProvider1.notifier).state} ~ ${ref.read(selectedLevelProvider2.notifier).state}
+    會員狀況: $selectedMemberStatus
+    入會方式: $selectedJoinMethod
+    入會日期: ${joinDateController1.text} ~ ${joinDateController2.text}
+    退出日期: ${withdrawDateController1.text} ~ ${withdrawDateController1.text}
+    審核日期: ${reviewDateController1.text} ~ ${reviewDateController2.text}
+    到期日: ${expiryDateController1.text} ~ ${expiryDateController2.text}
+    電子信箱: ${emailController.text}
+    行動電話: ${mobilePhoneController1.text}
+    行動電話二: ${mobilePhoneController2.text}
+    住宅電話: ${phoneController.text}
+    郵遞區號: ${postalCodeController1.text} ~ ${postalCodeController2.text}
+    縣市: ${ref.read(selectedCityQueryProvider.notifier).state} - ${cityController1.text} ~ ${cityController2.text}
+    地址: ${addressController.text}
+    年齡: ${ageController1.text} ~ ${ageController2.text}
+    銀行帳號: ${bankAccountController.text}
+    銀行別: ${bankController.text}
+    性別: ${ref.read(selectedGenderProvider.notifier).state}
+    入會地點: ${ref.read(selectedJoinLocationProvider.notifier).state}
+    生日月分: ${ref.read(selectedBirthdayMonthProvider.notifier).state}
+    可否瀏覽: ${ref.read(selectedCanBrowseProvider.notifier).state}
+    已購事業手冊: ${ref.read(selectedPurchasedManualProvider.notifier).state}
+    報表種類: ${ref.read(selectedReportTypeProvider.notifier).state}
+    獎金領取方式: ${ref.read(selectedBonusReceiveMethodProvider.notifier).state}
+    特殊設定: $selectedSpecialSettingsMethod
+    排序: 
+    一 : ${ref.read(selectedConditionProviders[0].notifier).state} - ${ref.read(selectedConditionTypeProviders[0].notifier).state}
+    二 : ${ref.read(selectedConditionProviders[1].notifier).state} - ${ref.read(selectedConditionTypeProviders[1].notifier).state}
+    三 : ${ref.read(selectedConditionProviders[2].notifier).state} - ${ref.read(selectedConditionTypeProviders[2].notifier).state}
+    """);
+  }
+
+  void clear(WidgetRef ref) {
+    memberIdController1.clear();
+    memberIdController2.clear();
+    memberNameController.clear();
+    idController.clear();
+    recommendController.clear();
+    parentMemberController.clear();
+    joinDateController1.clear();
+    joinDateController2.clear();
+    withdrawDateController1.clear();
+    withdrawDateController2.clear();
+    reviewDateController1.clear();
+    reviewDateController2.clear();
+    expiryDateController1.clear();
+    expiryDateController2.clear();
+    emailController.clear();
+    mobilePhoneController1.clear();
+    mobilePhoneController2.clear();
+    phoneController.clear();
+    postalCodeController1.clear();
+    postalCodeController2.clear();
+    cityController1.clear();
+    cityController2.clear();
+    addressController.clear();
+    ageController1.clear();
+    ageController2.clear();
+    bankAccountController.clear();
+    bankController.clear();
+
+    ref.invalidate(selectedAreaProvider);
+    ref.invalidate(selectedMemberTypeProvider);
+    ref.invalidate(selectedLevelProvider1);
+    ref.invalidate(selectedLevelProvider2);
+    ref.invalidate(selectedCityQueryProvider);
+    ref.invalidate(selectedGenderProvider);
+    ref.invalidate(selectedJoinLocationProvider);
+    ref.invalidate(selectedBirthdayMonthProvider);
+    ref.invalidate(selectedCanBrowseProvider);
+    ref.invalidate(selectedPurchasedManualProvider);
+    ref.invalidate(selectedReportTypeProvider);
+    ref.invalidate(selectedBonusReceiveMethodProvider);
+    ref.invalidate(selectedEmailQueryProvider);
+    ref.invalidate(selectedMobilePhone2Provider);
+    for(var provider in selectedConditionProviders) {
+      ref.invalidate(provider);
+    }
+    for(var provider in selectedConditionTypeProviders) {
+      ref.invalidate(provider);
+    }
+    selectedSpecialSettingsMethod =
+        List.generate(4, (index) => false);
+    selectedMemberStatus = List.generate(4, (index) => true);
+    selectedJoinMethod = List.generate(2, (index) => true);
+  }
+
+  void dispose() {
+    scrollController.dispose();
+    memberIdController1.dispose();
+    memberIdController2.dispose();
+    memberNameController.dispose();
+    idController.dispose();
+    recommendController.dispose();
+    parentMemberController.dispose();
+    joinDateController1.dispose();
+    joinDateController2.dispose();
+    withdrawDateController1.dispose();
+    withdrawDateController2.dispose();
+    reviewDateController1.dispose();
+    reviewDateController2.dispose();
+    expiryDateController1.dispose();
+    expiryDateController2.dispose();
+    emailController.dispose();
+    mobilePhoneController1.dispose();
+    mobilePhoneController2.dispose();
+    phoneController.dispose();
+    postalCodeController1.dispose();
+    postalCodeController2.dispose();
+    cityController1.dispose();
+    cityController2.dispose();
+    addressController.dispose();
+    ageController1.dispose();
+    ageController2.dispose();
+    bankAccountController.dispose();
+    bankController.dispose();
   }
 }

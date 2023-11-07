@@ -1,3 +1,4 @@
+import 'package:dm00ss/extension/ref_extension.dart';
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
 import 'package:dm00ss/style/theme_provider.dart';
@@ -60,7 +61,7 @@ class _DrawerViewState extends ConsumerState<DrawerView> {
                           title: '會員查詢',
                           onTap: () {
                             context.pop();
-                            ref.read(pageProvider.notifier).state = PageName.MemberQueryPage;
+                            ref.pushPage(PageName.MemberQueryPage);
                           },
                         ),
                         CustomExpansionTile(

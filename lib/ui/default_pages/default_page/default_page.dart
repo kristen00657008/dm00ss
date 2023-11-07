@@ -1,3 +1,4 @@
+import 'package:dm00ss/extension/ref_extension.dart';
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
 import 'package:dm00ss/style/theme_provider.dart';
@@ -14,6 +15,8 @@ import 'package:provider/provider.dart' as pro;
 import 'drawer_view.dart';
 
 final pageProvider = StateProvider<PageName>((ref) => PageName.FastNewsPage);
+
+final pageHistoryProvider = StateProvider<List<PageName>>((ref) => [PageName.FastNewsPage]);
 
 class DefaultPage extends StatefulWidget {
   const DefaultPage({super.key});
@@ -53,25 +56,31 @@ class _DefaultPageState extends State<DefaultPage> {
               ),
             ),
             Consumer(builder: (context, ref, _) {
-              return Scaffold(
-                backgroundColor: Colors.transparent,
-                drawerEnableOpenDragGesture: false,
-                drawer: DrawerView(),
-                appBar: AppBar(
-                  title: Text(getPageTitle(ref.watch(pageProvider))),
-                  centerTitle: true,
-                  actions: [buildMenu()],
+              return WillPopScope(
+                onWillPop: () {
+                  ref.popPage();
+                  return Future.value(false);
+                },
+                child: Scaffold(
                   backgroundColor: Colors.transparent,
-                  foregroundColor: Colors.white,
-                  iconTheme: IconThemeData(color: Colors.white),
-                  systemOverlayStyle: SystemUiOverlayStyle(
-                    systemNavigationBarColor: context
-                        .read<ThemeProvider>()
-                        .currentAppTheme
-                        .backgroundColor,
+                  drawerEnableOpenDragGesture: false,
+                  drawer: DrawerView(),
+                  appBar: AppBar(
+                    title: Text(getPageTitle(ref.watch(pageProvider))),
+                    centerTitle: true,
+                    actions: [buildMenu()],
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    iconTheme: IconThemeData(color: Colors.white),
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                      systemNavigationBarColor: context
+                          .read<ThemeProvider>()
+                          .currentAppTheme
+                          .backgroundColor,
+                    ),
                   ),
+                  body: getPage(ref.watch(pageProvider)),
                 ),
-                body: getPage(ref.watch(pageProvider)),
               );
             }),
           ],

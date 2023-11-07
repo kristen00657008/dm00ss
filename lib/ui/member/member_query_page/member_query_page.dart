@@ -25,6 +25,7 @@ class _MemberQueryPageState extends ConsumerState<MemberQueryPage> {
   void initState() {
     super.initState();
     model = MemberQueryModel.getInstance();
+    print("init");
     model.init();
   }
 
@@ -60,30 +61,42 @@ class _MemberQueryPageState extends ConsumerState<MemberQueryPage> {
               ),
             ),
           ),
-          buildBottomBtn(themeProvider),
+          buildBottomBtn(themeProvider, ref),
         ],
       );
     });
   }
 
-  Widget buildBottomBtn(ThemeProvider themeProvider) {
+  Widget buildBottomBtn(ThemeProvider themeProvider, WidgetRef ref) {
     return Row(
       children: [
         Expanded(
           child: MaterialCommonButton(
             backgroundColor: themeProvider.currentAppTheme.secondary,
             text: "重填",
-            onTap: () {},
+            onTap: () {
+              setState(() {
+                model.clear(ref);
+              });
+            },
           ),
         ),
         Expanded(
           child: MaterialCommonButton(
             backgroundColor: themeProvider.currentAppTheme.primary,
             text: "查詢",
-            onTap: () {},
+            onTap: () {
+              model.search(ref);
+            },
           ),
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    model.dispose();
+    super.dispose();
   }
 }

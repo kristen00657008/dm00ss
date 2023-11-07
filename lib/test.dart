@@ -1,59 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// A Counter example implemented with riverpod
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    // Adding ProviderScope enables Riverpod for the entire project
+    const ProviderScope(child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Custom Single View Example'),
-        ),
-        body: CustomSingleView(
-          child: Column(
-            children: List.generate(50, (index) {
-              return ListTile(
-                title: Text('Item $index'),
-              );
-            }),
-          ),
-        ),
-      ),
-    );
+    return const MaterialApp(home: Home());
   }
 }
 
-class CustomSingleView extends StatelessWidget {
-  final Widget child;
+/// Providers are declared globally and specify how to create a state
+final counterProvider = StateProvider((ref) => 0);
 
-  CustomSingleView({required this.child});
+class Home extends ConsumerWidget {
+  const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: Container(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-              minWidth: constraints.maxWidth,
-            ),
-            padding: EdgeInsets.only(top: 20),
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-              color: Colors.greenAccent,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(30.0),
-                topRight: const Radius.circular(30.0),
-              ),
-            ),
-            child: child,
-          ),
-        );
-      },
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Counter example')),
+      body: Center(
+        // Consumer is a builder widget that allows you to read providers.
+        child: Consumer(
+          builder: (context, ref, _) {
+            print("update1");
+            final count = ref.watch(counterProvider);
+            print("update2");
+            return Text('$count');
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        // The read method is a utility to read a provider without listening to it
+        onPressed: () {
+          ref.read(counterProvider.notifier).state = 2;
+          ref.read(counterProvider.notifier).state = 1;
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
