@@ -192,25 +192,25 @@ class MemberQueryModel {
     parentMemberController = TextEditingController();
     joinDateController1 = TextEditingController();
     joinDateController2 = TextEditingController();
-    withdrawDateController1 = TextEditingController();
-    withdrawDateController2 = TextEditingController();
-    reviewDateController1 = TextEditingController();
-    reviewDateController2 = TextEditingController();
-    expiryDateController1 = TextEditingController();
-    expiryDateController2 = TextEditingController();
-    emailController = TextEditingController();
-    mobilePhoneController1 = TextEditingController();
-    mobilePhoneController2 = TextEditingController();
-    phoneController = TextEditingController();
-    postalCodeController1 = TextEditingController();
-    postalCodeController2 = TextEditingController();
-    cityController1 = TextEditingController();
-    cityController2 = TextEditingController();
-    addressController = TextEditingController();
-    ageController1 = TextEditingController();
-    ageController2 = TextEditingController();
-    bankAccountController = TextEditingController();
-    bankController = TextEditingController();
+    // withdrawDateController1 = TextEditingController();
+    // withdrawDateController2 = TextEditingController();
+    // reviewDateController1 = TextEditingController();
+    // reviewDateController2 = TextEditingController();
+    // expiryDateController1 = TextEditingController();
+    // expiryDateController2 = TextEditingController();
+    // emailController = TextEditingController();
+    // mobilePhoneController1 = TextEditingController();
+    // mobilePhoneController2 = TextEditingController();
+    // phoneController = TextEditingController();
+    // postalCodeController1 = TextEditingController();
+    // postalCodeController2 = TextEditingController();
+    // cityController1 = TextEditingController();
+    // cityController2 = TextEditingController();
+    // addressController = TextEditingController();
+    // ageController1 = TextEditingController();
+    // ageController2 = TextEditingController();
+    // bankAccountController = TextEditingController();
+    // bankController = TextEditingController();
   }
 
   void search(WidgetRef ref) {
@@ -263,48 +263,48 @@ class MemberQueryModel {
     parentMemberController.clear();
     joinDateController1.clear();
     joinDateController2.clear();
-    withdrawDateController1.clear();
-    withdrawDateController2.clear();
-    reviewDateController1.clear();
-    reviewDateController2.clear();
-    expiryDateController1.clear();
-    expiryDateController2.clear();
-    emailController.clear();
-    mobilePhoneController1.clear();
-    mobilePhoneController2.clear();
-    phoneController.clear();
-    postalCodeController1.clear();
-    postalCodeController2.clear();
-    cityController1.clear();
-    cityController2.clear();
-    addressController.clear();
-    ageController1.clear();
-    ageController2.clear();
-    bankAccountController.clear();
-    bankController.clear();
+    // withdrawDateController1.clear();
+    // withdrawDateController2.clear();
+    // reviewDateController1.clear();
+    // reviewDateController2.clear();
+    // expiryDateController1.clear();
+    // expiryDateController2.clear();
+    // emailController.clear();
+    // mobilePhoneController1.clear();
+    // mobilePhoneController2.clear();
+    // phoneController.clear();
+    // postalCodeController1.clear();
+    // postalCodeController2.clear();
+    // cityController1.clear();
+    // cityController2.clear();
+    // addressController.clear();
+    // ageController1.clear();
+    // ageController2.clear();
+    // bankAccountController.clear();
+    // bankController.clear();
 
     ref.invalidate(selectedAreaProvider);
     ref.invalidate(selectedMemberTypeProvider);
     ref.invalidate(selectedLevelProvider1);
     ref.invalidate(selectedLevelProvider2);
-    ref.invalidate(selectedCityQueryProvider);
+    // ref.invalidate(selectedCityQueryProvider);
     ref.invalidate(selectedGenderProvider);
     ref.invalidate(selectedJoinLocationProvider);
-    ref.invalidate(selectedBirthdayMonthProvider);
-    ref.invalidate(selectedCanBrowseProvider);
-    ref.invalidate(selectedPurchasedManualProvider);
-    ref.invalidate(selectedReportTypeProvider);
-    ref.invalidate(selectedBonusReceiveMethodProvider);
-    ref.invalidate(selectedEmailQueryProvider);
-    ref.invalidate(selectedMobilePhone2Provider);
-    for(var provider in selectedConditionProviders) {
-      ref.invalidate(provider);
-    }
-    for(var provider in selectedConditionTypeProviders) {
-      ref.invalidate(provider);
-    }
-    selectedSpecialSettingsMethod =
-        List.generate(4, (index) => false);
+    // ref.invalidate(selectedBirthdayMonthProvider);
+    // ref.invalidate(selectedCanBrowseProvider);
+    // ref.invalidate(selectedPurchasedManualProvider);
+    // ref.invalidate(selectedReportTypeProvider);
+    // ref.invalidate(selectedBonusReceiveMethodProvider);
+    // ref.invalidate(selectedEmailQueryProvider);
+    // ref.invalidate(selectedMobilePhone2Provider);
+    // for(var provider in selectedConditionProviders) {
+    //   ref.invalidate(provider);
+    // }
+    // for(var provider in selectedConditionTypeProviders) {
+    //   ref.invalidate(provider);
+    // }
+    // selectedSpecialSettingsMethod =
+    //     List.generate(4, (index) => false);
     selectedMemberStatus = List.generate(4, (index) => true);
     selectedJoinMethod = List.generate(2, (index) => true);
   }
@@ -319,24 +319,24 @@ class MemberQueryModel {
     parentMemberController.dispose();
     joinDateController1.dispose();
     joinDateController2.dispose();
-    withdrawDateController1.dispose();
-    withdrawDateController2.dispose();
-    reviewDateController1.dispose();
-    reviewDateController2.dispose();
-    expiryDateController1.dispose();
-    expiryDateController2.dispose();
-    emailController.dispose();
-    mobilePhoneController1.dispose();
-    mobilePhoneController2.dispose();
-    phoneController.dispose();
-    postalCodeController1.dispose();
-    postalCodeController2.dispose();
-    cityController1.dispose();
-    cityController2.dispose();
-    addressController.dispose();
-    ageController1.dispose();
-    ageController2.dispose();
-    bankAccountController.dispose();
-    bankController.dispose();
+    // withdrawDateController1.dispose();
+    // withdrawDateController2.dispose();
+    // reviewDateController1.dispose();
+    // reviewDateController2.dispose();
+    // expiryDateController1.dispose();
+    // expiryDateController2.dispose();
+    // emailController.dispose();
+    // mobilePhoneController1.dispose();
+    // mobilePhoneController2.dispose();
+    // phoneController.dispose();
+    // postalCodeController1.dispose();
+    // postalCodeController2.dispose();
+    // cityController1.dispose();
+    // cityController2.dispose();
+    // addressController.dispose();
+    // ageController1.dispose();
+    // ageController2.dispose();
+    // bankAccountController.dispose();
+    // bankController.dispose();
   }
 }

@@ -29,7 +29,11 @@ class _CheckBoxGroupWidgetState extends State<CheckBoxGroupWidget> {
         margin: EdgeInsets.only(top: 10),
         padding: EdgeInsets.only(left: 10, top: 10, right: 10),
         decoration: BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.black12))),
+          border: Border(
+            top: BorderSide(color: Colors.black12),
+            bottom: BorderSide(color: Colors.black12),
+          ),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

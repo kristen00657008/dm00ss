@@ -18,7 +18,7 @@ class MemberExpansionWidget extends StatelessWidget {
       shape: Border(bottom: BorderSide(color: Colors.black12)),
       childrenPadding: EdgeInsets.only(bottom: 10),
       title: Text('會員相關'),
-      tilePadding: EdgeInsets.symmetric(horizontal: 10),
+      tilePadding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       initiallyExpanded: true,
       children: [
         DoubleTextFieldWidget(

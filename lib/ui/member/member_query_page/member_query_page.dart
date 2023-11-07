@@ -2,6 +2,7 @@ import 'package:dm00ss/style/theme_provider.dart';
 import 'package:dm00ss/ui/member/member_query_page/member_query_model.dart';
 import 'package:dm00ss/ui/member/member_query_page/page_widget/date_expansion_widget.dart';
 import 'package:dm00ss/ui/member/member_query_page/page_widget/info_expansion_widget.dart';
+import 'package:dm00ss/ui/member/member_query_page/page_widget/main_expansion_widget.dart';
 import 'package:dm00ss/ui/member/member_query_page/page_widget/member_expansion_widget.dart';
 import 'package:dm00ss/ui/member/member_query_page/page_widget/other_expansion_widget.dart';
 import 'package:dm00ss/widget/common_button.dart';
@@ -25,7 +26,6 @@ class _MemberQueryPageState extends ConsumerState<MemberQueryPage> {
   void initState() {
     super.initState();
     model = MemberQueryModel.getInstance();
-    print("init");
     model.init();
   }
 
@@ -52,10 +52,11 @@ class _MemberQueryPageState extends ConsumerState<MemberQueryPage> {
                   primary: false,
                   padding: EdgeInsets.zero,
                   children: [
-                    MemberExpansionWidget(model: model),
-                    DateExpansionWidget(model: model),
-                    InfoExpansionWidget(model: model),
-                    OtherExpansionWidget(model: model),
+                    MainExpansionWidget(model: model),
+                    // MemberExpansionWidget(model: model),
+                    // DateExpansionWidget(model: model),
+                    // InfoExpansionWidget(model: model),
+                    // OtherExpansionWidget(model: model),
                   ],
                 ),
               ),

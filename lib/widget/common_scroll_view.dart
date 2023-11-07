@@ -46,6 +46,9 @@ class CommonScrollView extends StatelessWidget {
               parent: BouncingScrollPhysics(),
             ),
             child: Container(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight
+              ),
               padding: EdgeInsets.only(top: 20),
               margin: EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
