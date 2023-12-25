@@ -1,6 +1,6 @@
-import 'package:dm00ss/style/theme_provider.dart';
+import 'package:dm00ss/providers/global_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart' as pro;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MoreButton extends StatelessWidget {
   final VoidCallback? onTap;
@@ -9,8 +9,8 @@ class MoreButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return pro.Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
+    return Consumer(builder: (context, ref, _) {
+      var currentAppTheme = ref.watch(themeProvider);
       return InkWell(
         onTap: onTap,
         child: Container(
@@ -18,7 +18,7 @@ class MoreButton extends StatelessWidget {
           margin: EdgeInsets.all(2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(3),
-            color: themeProvider.currentAppTheme.secondary,
+            color: currentAppTheme.secondary,
           ),
           child: Icon(
             Icons.more_horiz,

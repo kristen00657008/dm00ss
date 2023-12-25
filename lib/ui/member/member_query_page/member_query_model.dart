@@ -226,19 +226,6 @@ class MemberQueryModel {
     會員狀況: $selectedMemberStatus
     入會方式: $selectedJoinMethod
     入會日期: ${joinDateController1.text} ~ ${joinDateController2.text}
-    退出日期: ${withdrawDateController1.text} ~ ${withdrawDateController1.text}
-    審核日期: ${reviewDateController1.text} ~ ${reviewDateController2.text}
-    到期日: ${expiryDateController1.text} ~ ${expiryDateController2.text}
-    電子信箱: ${emailController.text}
-    行動電話: ${mobilePhoneController1.text}
-    行動電話二: ${mobilePhoneController2.text}
-    住宅電話: ${phoneController.text}
-    郵遞區號: ${postalCodeController1.text} ~ ${postalCodeController2.text}
-    縣市: ${ref.read(selectedCityQueryProvider.notifier).state} - ${cityController1.text} ~ ${cityController2.text}
-    地址: ${addressController.text}
-    年齡: ${ageController1.text} ~ ${ageController2.text}
-    銀行帳號: ${bankAccountController.text}
-    銀行別: ${bankController.text}
     性別: ${ref.read(selectedGenderProvider.notifier).state}
     入會地點: ${ref.read(selectedJoinLocationProvider.notifier).state}
     生日月分: ${ref.read(selectedBirthdayMonthProvider.notifier).state}

@@ -6,6 +6,7 @@ import 'package:dm00ss/ui/member/member_query_page/widget/double_text_field_widg
 import 'package:dm00ss/ui/member/member_query_page/widget/one_dropdown_button_widget.dart';
 import 'package:dm00ss/ui/member/member_query_page/widget/one_text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MainExpansionWidget extends StatelessWidget {
   final MemberQueryModel model;
@@ -70,6 +71,33 @@ class MainExpansionWidget extends StatelessWidget {
             showMoreButton2: true,
             controller1: model.joinDateController1,
             controller2: model.joinDateController2,
+            moreButton1Callback: () async {
+              DateTime selectDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1911, 01),
+                      lastDate: DateTime.now(),
+                      confirmText: "確定",
+                      cancelText: "取消",
+                      builder: (context, child) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 0.0),
+                              child: Container(
+                                height: 450,
+                                width: 700,
+                                child: child,
+                              ),
+                            ),
+                          ],
+                        );
+                      }) ??
+                  DateTime.now();
+              model.joinDateController1.text =
+                  DateFormat('yyyy/MM/dd').format(selectDate);
+            },
           ),
           OneTextFieldWidget(
             "推薦人",

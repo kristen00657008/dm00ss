@@ -1,7 +1,7 @@
 import 'package:dm00ss/extension/ref_extension.dart';
+import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
-import 'package:dm00ss/style/theme_provider.dart';
 import 'package:dm00ss/style/theme_style.dart';
 import 'package:dm00ss/ui/fast_news/fast_news_page.dart';
 import 'package:dm00ss/ui/member/member_query_page/member_query_page.dart';
@@ -14,10 +14,6 @@ import 'package:provider/provider.dart' as pro;
 
 import 'drawer_view.dart';
 
-final pageProvider = StateProvider<PageName>((ref) => PageName.FastNewsPage);
-
-final pageHistoryProvider = StateProvider<List<PageName>>((ref) => [PageName.FastNewsPage]);
-
 class DefaultPage extends StatefulWidget {
   const DefaultPage({super.key});
 
@@ -28,21 +24,20 @@ class DefaultPage extends StatefulWidget {
 class _DefaultPageState extends State<DefaultPage> {
   @override
   Widget build(BuildContext context) {
-    return pro.Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
+    return Consumer(builder: (context, ref, _) {
+      var currentAppTheme = ref.watch(themeProvider);
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor:
-            context.read<ThemeProvider>().currentAppTheme.scaffoldColor2,
+        systemNavigationBarColor: currentAppTheme.scaffoldColor2,
       ));
       return Container(
         decoration: BoxDecoration(
-          color: themeProvider.currentAppTheme.scaffoldColor1,
+          color: currentAppTheme.scaffoldColor1,
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              themeProvider.currentAppTheme.scaffoldColor1,
-              themeProvider.currentAppTheme.scaffoldColor2,
+              currentAppTheme.scaffoldColor1,
+              currentAppTheme.scaffoldColor2,
             ],
           ),
         ),
@@ -52,7 +47,7 @@ class _DefaultPageState extends State<DefaultPage> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 height: context.read<ScreenSize>().screenHeight * 0.5,
-                color: themeProvider.currentAppTheme.backgroundColor,
+                color: currentAppTheme.backgroundColor,
               ),
             ),
             Consumer(builder: (context, ref, _) {
@@ -73,10 +68,7 @@ class _DefaultPageState extends State<DefaultPage> {
                     foregroundColor: Colors.white,
                     iconTheme: IconThemeData(color: Colors.white),
                     systemOverlayStyle: SystemUiOverlayStyle(
-                      systemNavigationBarColor: context
-                          .read<ThemeProvider>()
-                          .currentAppTheme
-                          .backgroundColor,
+                      systemNavigationBarColor: currentAppTheme.backgroundColor,
                     ),
                   ),
                   body: getPage(ref.watch(pageProvider)),
@@ -142,44 +134,43 @@ class _DefaultPageState extends State<DefaultPage> {
   }
 
   Widget buildColorGroup() {
-    final themeProvider =
-        pro.Provider.of<ThemeProvider>(context, listen: false);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        pro.Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
-          return Container(
+    return Consumer(builder: (context, ref, _) {
+      var currentAppTheme = ref.watch(themeProvider);
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
             height: 50,
             width: context.read<ScreenSize>().screenWidth * 0.35,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            color: themeProvider.currentAppTheme.secondary,
+            color: currentAppTheme.secondary,
             child: Center(child: Text("整體色系")),
-          );
-        }),
-        Container(
-          height: 50,
-          color: Theme.of(context).dividerColor,
-          width: context.read<ScreenSize>().screenWidth * 0.35,
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton2<ThemeStyle>(
-              value: themeProvider.currentAppTheme,
-              items: themeData.map((ThemeStyle value) {
-                return DropdownMenuItem<ThemeStyle>(
-                  value: value,
-                  child: Text(
-                    value.name,
-                    style: TextStyle(color: value.primary),
-                  ),
-                );
-              }).toList(),
-              onChanged: (ThemeStyle? value) {
-                themeProvider.setTheme(value ?? themeData.first);
-              },
-            ),
           ),
-        )
-      ],
-    );
+          Container(
+            height: 50,
+            color: Theme.of(context).dividerColor,
+            width: context.read<ScreenSize>().screenWidth * 0.35,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton2<ThemeStyle>(
+                value: currentAppTheme,
+                items: themeData.map((ThemeStyle value) {
+                  return DropdownMenuItem<ThemeStyle>(
+                    value: value,
+                    child: Text(
+                      value.name,
+                      style: TextStyle(color: value.primary),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (ThemeStyle? value) {
+                  updateTheme(ref, value ?? themeData.first);
+                },
+              ),
+            ),
+          )
+        ],
+      );
+    });
   }
 
   Widget getPage(PageName pageName) {

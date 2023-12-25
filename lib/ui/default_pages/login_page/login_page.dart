@@ -1,8 +1,8 @@
-import 'package:dm00ss/style/theme_provider.dart';
+import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'widget/core_widget/background_view.dart';
 import 'widget/core_widget/foreground_view.dart';
@@ -17,13 +17,14 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, child) {
+
+    return Consumer(builder: (context, ref, _) {
+      var currentAppTheme = ref.watch(themeProvider);
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          systemNavigationBarColor: context.read<ThemeProvider>().currentAppTheme.scaffoldColor2,
+          systemNavigationBarColor: currentAppTheme.scaffoldColor2,
         ));
         return Scaffold(
-          backgroundColor: themeProvider.currentAppTheme.scaffoldColor1,
+          backgroundColor: currentAppTheme.scaffoldColor1,
           body: InkWell(
             onTap: () {
               if (LoginPageUIData.instance.accountFieldFocusNode.hasFocus ||
@@ -39,8 +40,7 @@ class _LoginPageState extends State<LoginPage> {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    themeProvider.currentAppTheme.scaffoldColor1,
-                    themeProvider.currentAppTheme.scaffoldColor2,
+                    currentAppTheme.scaffoldColor1, currentAppTheme.scaffoldColor2,
                   ],
                 ),
               ),

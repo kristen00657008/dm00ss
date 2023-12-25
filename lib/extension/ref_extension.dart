@@ -1,5 +1,5 @@
+import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/route/router.dart';
-import 'package:dm00ss/ui/default_pages/default_page/default_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 extension WidgetRefExtension on WidgetRef {

@@ -1,8 +1,7 @@
 import 'package:dm00ss/extension/ref_extension.dart';
+import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
-import 'package:dm00ss/style/theme_provider.dart';
-import 'package:dm00ss/ui/default_pages/default_page/default_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,11 +21,12 @@ class _DrawerViewState extends ConsumerState<DrawerView> {
   @override
   Widget build(BuildContext context) {
     final screenSize = pro.Provider.of<ScreenSize>(context);
-    return pro.Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
+    return Consumer(builder: (context, ref, _) {
+      var currentAppTheme = ref.watch(themeProvider);
       return Container(
         width: screenSize.screenWidth * 0.8,
         decoration: BoxDecoration(
-          color: themeProvider.currentAppTheme.backgroundColor,
+          color: currentAppTheme.backgroundColor,
         ),
         child: SafeArea(
           child: Column(
@@ -37,6 +37,7 @@ class _DrawerViewState extends ConsumerState<DrawerView> {
                   padding: EdgeInsets.zero,
                   children: [
                     ExpansionTile(
+                      initiallyExpanded: false,
                       shape: Border(),
                       title: Text('使用者管理'),
                       children: const [
@@ -55,6 +56,7 @@ class _DrawerViewState extends ConsumerState<DrawerView> {
                       ],
                     ),
                     ExpansionTile(
+                      initiallyExpanded: true,
                       title: Text('會員管理'),
                       children: [
                         CustomListTile(
@@ -135,7 +137,7 @@ class _DrawerViewState extends ConsumerState<DrawerView> {
           InkWell(
             onTap: () {
               context.pop();
-              ref.read(pageProvider.notifier).state = PageName.FastNewsPage;
+              ref.pushPage(PageName.FastNewsPage);
             },
             child: Text(
               "直銷管理系統",

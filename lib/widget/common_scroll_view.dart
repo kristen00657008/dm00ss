@@ -1,6 +1,6 @@
-import 'package:dm00ss/style/theme_provider.dart';
+import 'package:dm00ss/providers/global_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CommonScrollView extends StatelessWidget {
   final ScrollController scrollController;
@@ -15,7 +15,8 @@ class CommonScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(builder: (context, themeProvider, _) {
+    return Consumer(builder: (context, ref, _) {
+      var currentAppTheme = ref.watch(themeProvider);
       return NotificationListener<ScrollNotification>(
         onNotification: (notification) {
           if (notification is ScrollUpdateNotification) {
@@ -52,7 +53,7 @@ class CommonScrollView extends StatelessWidget {
               padding: EdgeInsets.only(top: 20),
               margin: EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
-                color: themeProvider.currentAppTheme.backgroundColor,
+                color: currentAppTheme.backgroundColor,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(30.0),
                   topRight: const Radius.circular(30.0),
