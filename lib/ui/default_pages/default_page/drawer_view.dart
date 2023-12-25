@@ -1,4 +1,3 @@
-import 'package:dm00ss/extension/ref_extension.dart';
 import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
@@ -63,7 +62,7 @@ class _DrawerViewState extends ConsumerState<DrawerView> {
                           title: '會員查詢',
                           onTap: () {
                             context.pop();
-                            ref.pushPage(PageName.MemberQueryPage);
+                            ref.read(pageProvider.notifier).pushPage(PageName.MemberQueryPage);
                           },
                         ),
                         CustomExpansionTile(
@@ -137,7 +136,7 @@ class _DrawerViewState extends ConsumerState<DrawerView> {
           InkWell(
             onTap: () {
               context.pop();
-              ref.pushPage(PageName.FastNewsPage);
+              ref.read(pageProvider.notifier).pushPage(PageName.FastNewsPage);
             },
             child: Text(
               "直銷管理系統",

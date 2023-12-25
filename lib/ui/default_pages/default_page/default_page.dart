@@ -1,4 +1,3 @@
-import 'package:dm00ss/extension/ref_extension.dart';
 import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
@@ -53,7 +52,7 @@ class _DefaultPageState extends State<DefaultPage> {
             Consumer(builder: (context, ref, _) {
               return WillPopScope(
                 onWillPop: () {
-                  ref.popPage();
+                  ref.read(pageProvider.notifier).popPage();
                   return Future.value(false);
                 },
                 child: Scaffold(
