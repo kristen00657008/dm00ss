@@ -1,5 +1,6 @@
 import 'package:dm00ss/ui/default_pages/default_page/default_page.dart';
 import 'package:dm00ss/ui/default_pages/login_page/login_page.dart';
+import 'package:dm00ss/ui/member/member_info_page/member_info_page.dart';
 import 'package:dm00ss/ui/member/member_query_page/member_query_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +25,12 @@ final GoRouter appRouter = GoRouter(
             return const MemberQueryPage();
           },
         ),
+        GoRoute(
+          path: 'MemberInfoPage',
+          builder: (BuildContext context, GoRouterState state) {
+            return const MemberInfoPage();
+          },
+        ),
       ],
     ),
   ],
@@ -31,5 +38,6 @@ final GoRouter appRouter = GoRouter(
 
 enum PageName {
   FastNewsPage,
-  MemberQueryPage
+  MemberQueryPage,
+  MemberInfoPage
 }

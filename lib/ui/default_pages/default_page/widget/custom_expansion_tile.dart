@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class CustomExpansionTile extends StatelessWidget {
   final String title;
   final List<Widget> children;
-  const CustomExpansionTile({super.key, required this.title, required this.children});
+  final VoidCallback? onTap;
+
+  const CustomExpansionTile(
+      {super.key, required this.title, required this.children, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +15,12 @@ class CustomExpansionTile extends StatelessWidget {
       child: Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
-          title: Text(title),
+          title: InkWell(
+            onTap: onTap,
+            child: Text(title),
+          ),
           collapsedTextColor: Colors.black,
-          children:  children,
+          children: children,
         ),
       ),
     );

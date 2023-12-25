@@ -64,7 +64,7 @@ final List<ThemeStyle> themeData = [
     scaffoldColor1: const Color(0xFF006064),
     scaffoldColor2: const Color(0xFF0D47A1),
     backgroundColor: const Color(0xFFF5F5FF),
-    fieldBackgroundColor: const Color(0xFFEDF1FE),
+    fieldBackgroundColor: const Color(0xFF9E9E9E),
   ),
   ThemeStyle(
     name: "紅色",
@@ -74,7 +74,7 @@ final List<ThemeStyle> themeData = [
     scaffoldColor1: const Color(0xFFC2185B),
     scaffoldColor2: const Color(0xFFD32F2F),
     backgroundColor: const Color(0xFFFFF5F5),
-    fieldBackgroundColor: const Color(0xFFFEEDEE),
+    fieldBackgroundColor: const Color(0xFF9E9E9E),
   ),
   ThemeStyle(
     name: "綠色",
@@ -84,7 +84,7 @@ final List<ThemeStyle> themeData = [
     scaffoldColor1: const Color(0xFF33691E),
     scaffoldColor2: const Color(0xFF014E40),
     backgroundColor: const Color(0xFFF5FFF5),
-    fieldBackgroundColor: const Color(0xFFECFAF0),
+    fieldBackgroundColor: const Color(0xFF9E9E9E),
   ),
   ThemeStyle(
     name: "紫色",
@@ -94,6 +94,6 @@ final List<ThemeStyle> themeData = [
     scaffoldColor1: const Color(0xFFA5668B),
     scaffoldColor2: const Color(0xFF69306D),
     backgroundColor: const Color(0xFFFFF3FF),
-    fieldBackgroundColor: const Color(0xFFFBEAFC),
+    fieldBackgroundColor: const Color(0xFF9E9E9E),
   ),
 ];

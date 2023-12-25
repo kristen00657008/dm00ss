@@ -66,6 +66,10 @@ class _DrawerViewState extends ConsumerState<DrawerView> {
                           },
                         ),
                         CustomExpansionTile(
+                          onTap: () {
+                            context.pop();
+                            ref.read(pageProvider.notifier).pushPage(PageName.MemberInfoPage);
+                          },
                           title: '會員基本資料',
                           children: const [
                             CustomListTile(

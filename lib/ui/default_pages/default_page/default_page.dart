@@ -3,6 +3,7 @@ import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
 import 'package:dm00ss/style/theme_style.dart';
 import 'package:dm00ss/ui/fast_news/fast_news_page.dart';
+import 'package:dm00ss/ui/member/member_info_page/member_info_page.dart';
 import 'package:dm00ss/ui/member/member_query_page/member_query_page.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -178,6 +179,8 @@ class _DefaultPageState extends State<DefaultPage> {
         return FastNewsPage();
       case PageName.MemberQueryPage:
         return MemberQueryPage();
+      case PageName.MemberInfoPage:
+        return MemberInfoPage();
       default:
         return Text("Error Page");
     }
@@ -189,6 +192,8 @@ class _DefaultPageState extends State<DefaultPage> {
         return "最新消息";
       case PageName.MemberQueryPage:
         return "會員查詢";
+      case PageName.MemberInfoPage:
+        return "會員基本資料";
       default:
         return "錯誤標題";
     }
