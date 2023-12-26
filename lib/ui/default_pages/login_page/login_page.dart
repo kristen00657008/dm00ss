@@ -1,7 +1,7 @@
 import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
+import 'package:dm00ss/widget/common_background_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'widget/core_widget/background_view.dart';
@@ -17,14 +17,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-
     return Consumer(builder: (context, ref, _) {
       var currentAppTheme = ref.watch(themeProvider);
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          systemNavigationBarColor: currentAppTheme.scaffoldColor2,
-        ));
         return Scaffold(
-          backgroundColor: currentAppTheme.scaffoldColor1,
           body: InkWell(
             onTap: () {
               if (LoginPageUIData.instance.accountFieldFocusNode.hasFocus ||

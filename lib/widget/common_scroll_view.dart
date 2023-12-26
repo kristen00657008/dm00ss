@@ -40,31 +40,39 @@ class CommonScrollView extends StatelessWidget {
           }
           return false;
         },
-        child: LayoutBuilder(builder: (context, constraints) {
-          return SingleChildScrollView(
-            controller: scrollController,
-            physics: AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics(),
-            ),
-            child: Container(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Container(
+              padding: EdgeInsets.only(top: 10, bottom: 5),
+              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              padding: EdgeInsets.only(top: 20),
-              margin: EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
-                  color: currentAppTheme.backgroundColor,
-                  borderRadius: BorderRadius.circular(30)),
-              child: InkWell(
-                onTap: () {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                },
-                child: Container(
-                  padding: EdgeInsets.only(bottom: 20.0),
-                  child: child,
+                color: currentAppTheme.backgroundColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
                 ),
               ),
-            ),
-          );
-        }),
+              child: SingleChildScrollView(
+                controller: scrollController,
+                physics: AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics(),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 20.0),
+                    child: child,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       );
     });
   }

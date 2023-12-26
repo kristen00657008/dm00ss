@@ -1,4 +1,5 @@
 import 'package:dm00ss/screen_size.dart';
+import 'package:dm00ss/widget/common_background_view.dart';
 import 'package:dm00ss/widget/common_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,43 +16,46 @@ class _FastNewsPageState extends State<FastNewsPage> {
   Widget build(BuildContext context) {
     ScreenSize screenSize = Provider.of<ScreenSize>(context);
 
-    return CommonScrollView(
-      scrollController: ScrollController(),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        primary: false,
-        itemCount: 20,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-            padding: EdgeInsets.all(10),
-            height: screenSize.screenHeight * 0.12,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  newsData[index].dateTime,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                Expanded(
-                  child: Text(
-                    newsData[index].title,
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    overflow: TextOverflow.ellipsis,
+    return CommonBackgroundView(
+      child: CommonScrollView(
+        scrollController: ScrollController(),
+        child: ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          primary: false,
+          itemCount: 20,
+          padding: EdgeInsets.only(top: 20),
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+              padding: EdgeInsets.all(10),
+              height: screenSize.screenHeight * 0.12,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    newsData[index].dateTime,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
-                ),
-              ],
-            ),
-          );
-        },
+                  Expanded(
+                    child: Text(
+                      newsData[index].title,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -2,10 +2,10 @@ import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/style/theme_style.dart';
 import 'package:dm00ss/ui/member/member_query_page/core_widget/main_expansion_widget.dart';
 import 'package:dm00ss/ui/member/member_query_page/member_query_model.dart';
+import 'package:dm00ss/widget/common_background_view.dart';
 import 'package:dm00ss/widget/common_button.dart';
 import 'package:dm00ss/widget/common_scroll_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MemberQueryPage extends ConsumerStatefulWidget {
@@ -27,35 +27,37 @@ class _MemberQueryPageState extends ConsumerState<MemberQueryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, _) {
-      var currentAppTheme = ref.watch(themeProvider);
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: currentAppTheme.scaffoldColor2,
-      ));
-      return Column(
-        children: [
-          Expanded(
-            child: CommonScrollView(
-              scrollController: model.scrollController,
-              child: ListView(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                primary: false,
-                padding: EdgeInsets.zero,
-                children: [
-                  MainExpansionWidget(model: model),
-                  // MemberExpansionWidget(model: model),
-                  // DateExpansionWidget(model: model),
-                  // InfoExpansionWidget(model: model),
-                  // OtherExpansionWidget(model: model),
-                ],
+    return CommonBackgroundView(
+      child: Consumer(
+        builder: (context, ref, _) {
+          var currentAppTheme = ref.watch(themeProvider);
+          return Column(
+            children: [
+              Expanded(
+                child: CommonScrollView(
+                  scrollController: model.scrollController,
+                  child: ListView(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    primary: false,
+                    padding: EdgeInsets.zero,
+                    children: [
+                      MainExpansionWidget(model: model),
+                      // MemberExpansionWidget(model: model),
+                      // DateExpansionWidget(model: model),
+                      // InfoExpansionWidget(model: model),
+                      // OtherExpansionWidget(model: model),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          buildBottomBtn(currentAppTheme, ref),
-        ],
-      );
-    });
+              SizedBox(height: 5),
+              buildBottomBtn(currentAppTheme, ref),
+            ],
+          );
+        },
+      ),
+    );
   }
 
   Widget buildBottomBtn(ThemeStyle currentAppTheme, WidgetRef ref) {

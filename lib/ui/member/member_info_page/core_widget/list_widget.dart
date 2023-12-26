@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class ListWidget extends StatefulWidget {
   final ThemeStyle themeStyle;
   final Map<String, String> data;
+
   const ListWidget({super.key, required this.themeStyle, required this.data});
 
   @override
@@ -12,14 +13,13 @@ class ListWidget extends StatefulWidget {
 }
 
 class _ListWidgetState extends State<ListWidget> {
-
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       primary: false,
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.only(top: 20),
       itemBuilder: (BuildContext context, int index) {
         return buildField(index);
       },
@@ -35,7 +35,9 @@ class _ListWidgetState extends State<ListWidget> {
     String value = widget.data.values.elementAt(index);
 
     return CommonFieldWidget(
-        themeStyle: widget.themeStyle, title: title, value: value);
+      themeStyle: widget.themeStyle,
+      title: title,
+      value: value,
+    );
   }
-
 }
