@@ -67,9 +67,9 @@ class _DefaultPageState extends State<DefaultPage> {
                     backgroundColor: Colors.transparent,
                     foregroundColor: Colors.white,
                     iconTheme: IconThemeData(color: Colors.white),
-                    systemOverlayStyle: SystemUiOverlayStyle(
-                      systemNavigationBarColor: currentAppTheme.backgroundColor,
-                    ),
+                    // systemOverlayStyle: SystemUiOverlayStyle(
+                    //   systemNavigationBarColor: currentAppTheme.backgroundColor,
+                    // ),
                   ),
                   body: getPage(ref.watch(pageProvider)),
                 ),

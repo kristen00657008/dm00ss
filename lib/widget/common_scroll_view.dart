@@ -47,19 +47,21 @@ class CommonScrollView extends StatelessWidget {
               parent: BouncingScrollPhysics(),
             ),
             child: Container(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight
-              ),
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
               padding: EdgeInsets.only(top: 20),
               margin: EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
-                color: currentAppTheme.backgroundColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(30.0),
-                  topRight: const Radius.circular(30.0),
+                  color: currentAppTheme.backgroundColor,
+                  borderRadius: BorderRadius.circular(30)),
+              child: InkWell(
+                onTap: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                child: Container(
+                  padding: EdgeInsets.only(bottom: 20.0),
+                  child: child,
                 ),
               ),
-              child: child,
             ),
           );
         }),
