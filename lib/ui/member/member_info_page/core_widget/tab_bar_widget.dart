@@ -3,6 +3,8 @@ import 'package:dm00ss/ui/member/member_info_page/member_info_page_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../data/data.dart';
+
 class TabBarWidget extends ConsumerStatefulWidget {
   final ThemeStyle themeStyle;
   final MemberInfoModel model;
@@ -26,9 +28,9 @@ class _TabBarWidgetState extends ConsumerState<TabBarWidget>{
         labelColor: widget.themeStyle.backgroundColor,
         indicator: const UnderlineTabIndicator(),
         controller: widget.model.tabController,
-        tabs:  widget.model.tabs.map((e) {
+        tabs:  MemberInfoTabs.values.map((e) {
           return Tab(
-            text: e,
+            text: e.title,
           );
         }).toList(),
       ),

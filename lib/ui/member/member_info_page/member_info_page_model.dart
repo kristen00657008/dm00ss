@@ -13,22 +13,9 @@ class MemberInfoModel {
 
   late TabController tabController;
 
-  List<String> tabs = [
-    '基本',
-    '地址/帳號',
-    '經營狀況',
-    '審核狀況',
-    '特殊設定',
-    '自動訂貨',
-    '溢收款明細',
-    '晉升狀況',
-    '課程紀錄',
-    '第一代會員'
-  ];
-
   void init(TickerProvider provider) {
     tabController = TabController(
-        length: tabs.length,
+        length: MemberInfoTabs.values.length,
         vsync: provider,
         animationDuration: Duration(milliseconds: 500));
   }
@@ -44,7 +31,7 @@ class MemberInfoModel {
       case '審核狀況':
         return reviewData;
       case '特殊設定':
-        return basicData;
+        return specialData;
       case '自動訂貨':
         return basicData;
       case '溢收款明細':

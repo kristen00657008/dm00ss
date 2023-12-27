@@ -1,3 +1,4 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -8,44 +9,59 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Row Height Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(),
+      home: DataTable2SimpleDemo(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class DataTable2SimpleDemo extends StatelessWidget {
+  const DataTable2SimpleDemo();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Row Height Demo'),
-      ),
-      body: IntrinsicHeight(
-        child: Row(
-          children: [
-            // 左边的内容
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(color: Colors.grey[300],),
-                // color: Colors.grey[300],
-                height: double.infinity,
-                child: Text(
-                  '左边内容',
-                  style: TextStyle(fontSize: 16.0),
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: DataTable2(
+              columnSpacing: 10,
+              horizontalMargin: 20,
+              minWidth: 600,
+              lmRatio: 1.8,
+              columns: const [
+                DataColumn2(
+                  label: Text('項次'),
+                  size: ColumnSize.S,
                 ),
-              ),
-            ),
-            // 右边的内容
-            Flexible(
-              child: Container(
-                color: Colors.grey[500],
-                child: Text(
-                  '这是一个较长的文本内容，这是一个较长的文本内容，这是一个较长的文本内容，这是一个较长的文本内容。',
-                  style: TextStyle(fontSize: 16.0),
+                DataColumn2(
+                  label: Text('Column A'),
+                  size: ColumnSize.L,
                 ),
-              ),
-            ),
-          ],
+                DataColumn(
+                  label: Text('Column B'),
+                ),
+                DataColumn(
+                  label: Text('Column C'),
+                ),
+                DataColumn(
+                  label: Text('Column D'),
+                ),
+                DataColumn2(
+                  label: Text('Column NUMBERS'),
+                  numeric: true,
+                  size: ColumnSize.L,
+                ),
+              ],
+              rows: List<DataRow>.generate(
+                  100,
+                      (index) => DataRow(cells: [
+                        DataCell(Text((index+1).toString())),
+                    DataCell(TextField()),
+                    DataCell(Text('B' * (10 - (index + 5) % 10))),
+                    DataCell(Text('C' * (15 - (index + 5) % 10))),
+                    DataCell(Text('D' * (15 - (index + 10) % 10))),
+                    DataCell(Text(((index + 0.1) * 25.4).toString()))
+                  ]))),
         ),
       ),
     );
