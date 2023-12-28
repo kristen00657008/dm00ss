@@ -4,29 +4,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CustomDropdownButton extends StatelessWidget {
-  final List<String> dataList;
-  final StateProvider<String> provider;
+  final List<dynamic> dataList;
+  final StateProvider<dynamic> provider;
+  final Color? fontColor;
+  final Color? backgroundColor;
 
-  const CustomDropdownButton(
-      {super.key, required this.dataList, required this.provider});
+  const CustomDropdownButton({
+    super.key,
+    required this.dataList,
+    required this.provider,
+    this.fontColor,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, _) {
       var currentAppTheme = ref.watch(themeProvider);
       return DropdownButtonHideUnderline(
-        child: DropdownButton2<String>(
+        child: DropdownButton2<dynamic>(
           isExpanded: true,
           items: dataList
               .map(
-                (String item) => DropdownMenuItem<String>(
+                (dynamic item) => DropdownMenuItem<dynamic>(
                   value: item,
                   child: Text(
-                    item,
-                    style: const TextStyle(
+                    item.toString(),
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: fontColor ?? Colors.black,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -39,7 +46,7 @@ class CustomDropdownButton extends StatelessWidget {
           },
           buttonStyleData: ButtonStyleData(
             decoration: BoxDecoration(
-              color: currentAppTheme.fieldBackgroundColor,
+              color: backgroundColor ?? currentAppTheme.fieldBackgroundColor,
               borderRadius: BorderRadius.circular(5),
               border: Border.all(
                 color: Colors.black54,

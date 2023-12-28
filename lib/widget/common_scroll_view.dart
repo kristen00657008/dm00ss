@@ -45,7 +45,6 @@ class CommonScrollView extends StatelessWidget {
             return Container(
               padding: EdgeInsets.only(top: 10, bottom: 5),
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
               decoration: BoxDecoration(
                 color: currentAppTheme.backgroundColor,
                 borderRadius: BorderRadius.only(

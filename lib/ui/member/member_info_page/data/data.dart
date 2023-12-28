@@ -162,7 +162,7 @@ Map<String, String> specialData = {
 Map<String, dynamic> getModelProperties(dynamic model) {
   if (model is PromotionDataModel) {
     return {
-      '項次': model,
+      '項次': null,
       '生效日': model.effectiveDate,
       '異動代號': model.changeCode,
       '晉升階級': model.level,
@@ -175,7 +175,7 @@ Map<String, dynamic> getModelProperties(dynamic model) {
   }
   if (model is FirstMemberDataModel) {
     return {
-      '項次': model,
+      '項次': null,
       '會員編號': model.memberID,
       '姓名(公司名稱)': model.memberName,
       '階級': model.level,

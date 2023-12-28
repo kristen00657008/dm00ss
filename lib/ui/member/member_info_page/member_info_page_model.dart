@@ -18,6 +18,8 @@ class MemberInfoModel {
         length: MemberInfoTabs.values.length,
         vsync: provider,
         animationDuration: Duration(milliseconds: 500));
+
+    tabController.addListener(() {});
   }
 
   Map<String, String> getDataMap(String title) {

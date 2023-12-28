@@ -46,48 +46,51 @@ class _MemberInfoPageState extends ConsumerState<MemberInfoPage>
             TopButtonsWidget(themeStyle: currentAppTheme),
             Expanded(
               child: TabBarView(
-                  physics: model.tabController.index < 5
-                      ? NeverScrollableScrollPhysics()
-                      : NeverScrollableScrollPhysics(),
-                  controller: model.tabController,
-                  viewportFraction: 1.0,
-                  children: MemberInfoTabs.values.map((e) {
-                    switch (e) {
-                      case MemberInfoTabs.basic:
-                      case MemberInfoTabs.address:
-                      case MemberInfoTabs.manage:
-                      case MemberInfoTabs.review:
-                      case MemberInfoTabs.special:
-                        return CommonScrollView(
-                          scrollController: ScrollController(),
-                          child: ListWidget(
-                            themeStyle: currentAppTheme,
-                            data: e.data,
-                          ),
-                        );
-                      case MemberInfoTabs.autoOrder:
-                      case MemberInfoTabs.collectionDetails:
-                      case MemberInfoTabs.promotion:
-                        return TableWidget(
-                          themeStyle: currentAppTheme,
-                          tab: e,
-                          items: promotionData,
-                        );
-                      case MemberInfoTabs.courseRecords:
-                      case MemberInfoTabs.firstMembers:
-                        return TableWidget(
-                          themeStyle: currentAppTheme,
-                          tab: e,
-                          items: firstMemberData,
-                        );
-                      default:
-                        return FlutterLogo();
-                    }
-                  }).toList()),
+                physics: model.tabController.index < 5
+                    ? AlwaysScrollableScrollPhysics()
+                    : NeverScrollableScrollPhysics(),
+                controller: model.tabController,
+                viewportFraction: 1.0,
+                children: buildTabBarViewChildren(currentAppTheme),
+              ),
             ),
           ],
         );
       }),
     );
+  }
+
+  List<Widget> buildTabBarViewChildren(ThemeStyle themeStyle) {
+    return MemberInfoTabs.values.map((tab) {
+      if(tab.isDataTable) {
+        switch (tab) {
+          case MemberInfoTabs.autoOrder:
+          case MemberInfoTabs.collectionDetails:
+          case MemberInfoTabs.promotion:
+            return TableWidget(
+              themeStyle: themeStyle,
+              tab: tab,
+              items: promotionData,
+            );
+          case MemberInfoTabs.courseRecords:
+          case MemberInfoTabs.firstMembers:
+            return TableWidget(
+              themeStyle: themeStyle,
+              tab: tab,
+              items: firstMemberData,
+            );
+          default:
+            return FlutterLogo();
+        }
+      } else {
+        return CommonScrollView(
+          scrollController: ScrollController(),
+          child: ListWidget(
+            themeStyle: themeStyle,
+            data: tab.data,
+          ),
+        );
+      }
+    }).toList();
   }
 }
