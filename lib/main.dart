@@ -2,17 +2,21 @@ import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/share_preference/shared_preference_service.dart';
 import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart' as pro;
 
+import 'http/api_config.dart';
 import 'screen_size.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SharedPreferencesService.instance.init();
+
+  ApiConfig.getInstance().initDio();
 
   runApp(ProviderScope(
     child: pro.MultiProvider(
@@ -41,6 +45,8 @@ class _MyAppState extends State<MyApp> {
     return Consumer(builder: (context, ref, _) {
       var currentAppTheme = ref.watch(themeProvider);
       return MaterialApp.router(
+        scrollBehavior: const MaterialScrollBehavior()
+            .copyWith(dragDevices: PointerDeviceKind.values.toSet()),
         title: 'Flex Color Scheme Demo',
         theme: FlexColorScheme.light(
           primary: currentAppTheme.primary,

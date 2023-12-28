@@ -1,4 +1,5 @@
 import 'package:dm00ss/providers/global_provider.dart';
+import 'package:dm00ss/repository/memer_repository.dart';
 import 'package:dm00ss/style/theme_style.dart';
 import 'package:dm00ss/ui/member/member_info_page/core_widget/list_widget.dart';
 import 'package:dm00ss/ui/member/member_info_page/core_widget/tab_bar_widget.dart';
@@ -6,7 +7,8 @@ import 'package:dm00ss/ui/member/member_info_page/core_widget/table_widget.dart'
 import 'package:dm00ss/ui/member/member_info_page/core_widget/top_buttons_widget.dart';
 import 'package:dm00ss/ui/member/member_info_page/member_info_page_model.dart';
 import 'package:dm00ss/widget/common_background_view.dart';
-import 'package:dm00ss/widget/common_scroll_view.dart';
+import 'package:dm00ss/widget/default_view.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,17 +26,21 @@ class MemberInfoPage extends ConsumerStatefulWidget {
 class _MemberInfoPageState extends ConsumerState<MemberInfoPage>
     with SingleTickerProviderStateMixin {
   late MemberInfoModel model;
-
+  late EasyRefreshController _controller;
   @override
   void initState() {
     super.initState();
     model = MemberInfoModel.getInstance();
     model.init(this);
+    _controller = EasyRefreshController(
+      controlFinishRefresh: true,
+      controlFinishLoad: true,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return CommonBackgroundView(
+    return DefaultView(
       child: Consumer(builder: (context, ref, _) {
         ThemeStyle currentAppTheme = ref.watch(themeProvider);
         return Column(
@@ -83,11 +89,28 @@ class _MemberInfoPageState extends ConsumerState<MemberInfoPage>
             return FlutterLogo();
         }
       } else {
-        return CommonScrollView(
-          scrollController: ScrollController(),
-          child: ListWidget(
-            themeStyle: themeStyle,
-            data: tab.data,
+        return CommonBackgroundView(
+          child: EasyRefresh(
+            controller: _controller,
+            header:  MaterialHeader(
+              clamping: false,
+              position: IndicatorPosition.above,
+              triggerOffset: 30,
+              processedDuration: Duration(microseconds: 200)
+            ),
+            onRefresh: () async {
+              MemberRepository().queryMember("DM123349").listen((event) {
+                if(event.isSuccess) {
+                  MemberInfoModel.getInstance().queryMemberBean = event;
+                  setState(() {});
+                }
+                _controller.finishRefresh();
+              });
+            },
+            child: ListWidget(
+              themeStyle: themeStyle,
+              data: tab.data,
+            ),
           ),
         );
       }

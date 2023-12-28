@@ -16,10 +16,7 @@ class _ListWidgetState extends State<ListWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      primary: false,
-      padding: EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: 5),
       itemBuilder: (BuildContext context, int index) {
         return buildField(index);
       },

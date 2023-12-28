@@ -1,5 +1,5 @@
 import 'package:dm00ss/screen_size.dart';
-import 'package:dm00ss/widget/common_background_view.dart';
+import 'package:dm00ss/widget/default_view.dart';
 import 'package:dm00ss/widget/common_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class _FastNewsPageState extends State<FastNewsPage> {
   Widget build(BuildContext context) {
     ScreenSize screenSize = Provider.of<ScreenSize>(context);
 
-    return CommonBackgroundView(
+    return DefaultView(
       child: CommonScrollView(
         scrollController: ScrollController(),
         child: ListView.builder(

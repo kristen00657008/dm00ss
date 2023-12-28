@@ -1,8 +1,11 @@
 import 'package:dm00ss/providers/global_provider.dart';
+import 'package:dm00ss/repository/memer_repository.dart';
+import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/style/theme_style.dart';
+import 'package:dm00ss/ui/member/member_info_page/member_info_page_model.dart';
 import 'package:dm00ss/ui/member/member_query_page/core_widget/main_expansion_widget.dart';
 import 'package:dm00ss/ui/member/member_query_page/member_query_model.dart';
-import 'package:dm00ss/widget/common_background_view.dart';
+import 'package:dm00ss/widget/default_view.dart';
 import 'package:dm00ss/widget/common_button.dart';
 import 'package:dm00ss/widget/common_scroll_view.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +30,7 @@ class _MemberQueryPageState extends ConsumerState<MemberQueryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CommonBackgroundView(
+    return DefaultView(
       child: Consumer(
         builder: (context, ref, _) {
           var currentAppTheme = ref.watch(themeProvider);
@@ -80,6 +83,16 @@ class _MemberQueryPageState extends ConsumerState<MemberQueryPage> {
             text: "查詢",
             onTap: () {
               model.search(ref);
+              String memberID = model.memberIdController1.text;
+
+              MemberRepository().queryMember(memberID).listen((event) {
+                if(event.isSuccess) {
+                  MemberInfoModel.getInstance().queryMemberBean = event;
+                  ref.read(pageProvider.notifier).pushPage(PageName.MemberInfoPage);
+                } else {
+
+                }
+              });
             },
           ),
         ),

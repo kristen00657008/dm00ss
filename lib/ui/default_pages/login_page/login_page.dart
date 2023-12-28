@@ -1,6 +1,5 @@
 import 'package:dm00ss/providers/global_provider.dart';
 import 'package:dm00ss/ui/default_pages/login_page/login_page_ui_data.dart';
-import 'package:dm00ss/widget/common_background_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
