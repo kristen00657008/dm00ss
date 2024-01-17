@@ -84,15 +84,6 @@ class _MemberQueryPageState extends ConsumerState<MemberQueryPage> {
             onTap: () {
               model.search(ref);
               String memberID = model.memberIdController1.text;
-
-              MemberRepository().queryMember(memberID).listen((event) {
-                if(event.isSuccess) {
-                  MemberInfoModel.getInstance().queryMemberBean = event;
-                  ref.read(pageProvider.notifier).pushPage(PageName.MemberInfoPage);
-                } else {
-
-                }
-              });
             },
           ),
         ),

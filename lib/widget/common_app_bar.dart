@@ -1,10 +1,14 @@
+import 'package:dio/dio.dart';
+import 'package:dm00ss/bean/base/base_result.dart';
+import 'package:dm00ss/enum/status_code.dart';
 import 'package:dm00ss/providers/global_provider.dart';
+import 'package:dm00ss/repository/memer_repository.dart';
 import 'package:dm00ss/route/router.dart';
 import 'package:dm00ss/screen_size.dart';
 import 'package:dm00ss/style/theme_style.dart';
+import 'package:dm00ss/ui/default_pages/login_page/widget/core_widget/foreground_view.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart' as pro;
@@ -45,6 +49,49 @@ class CommonAppBar extends StatelessWidget {
       icon: Icon(Icons.adaptive.more, color: Colors.white),
       itemBuilder: (BuildContext context) => <PopupMenuEntry>[
         PopupMenuItem(
+          child: Text('取得參數'),
+          onTap: () {
+            MemberRepository()
+                .getBWEX()
+                .listen((event) {
+              if(event.statusCode == StatusCode.code200) {
+                print(event.result?.first.bsitm);
+              }
+            }).onError((e) {
+              if (e is DioException && e.error is BaseResult) {
+                BaseResult errorResult = e.error as BaseResult;
+                if(errorResult.error != null) {
+                  showCustomDialog(context, errorResult.error!.message);
+                }
+              }
+            });
+          },
+        ),
+        PopupMenuItem(
+          child: Text('取得使用者登入分公司'),
+          onTap: () {
+            MemberRepository()
+                .getLoginOrg()
+                .listen((event) {
+              if(event.statusCode == StatusCode.code200) {
+                print(event.result?.first.companyNames);
+              }
+            }).onError((e) {
+              if (e is DioException && e.error is BaseResult) {
+                BaseResult errorResult = e.error as BaseResult;
+                if(errorResult.error != null) {
+                  showCustomDialog(context, errorResult.error!.message);
+                }
+              }
+            });
+          },
+        ),
+        PopupMenuItem(
+          child: Text('版型設定'),
+          onTap: () {
+          },
+        ),
+        PopupMenuItem(
           child: Text('版型設定'),
           onTap: () {
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -58,7 +105,16 @@ class CommonAppBar extends StatelessWidget {
         PopupMenuItem(
           child: Text('登出'),
           onTap: () {
-            context.pushReplacement('/');
+            MemberRepository().signOut().listen((event) {
+              context.pushReplacement('/');
+            }).onError((e) {
+              if (e is DioException && e.error is BaseResult) {
+                BaseResult errorResult = e.error as BaseResult;
+                if (errorResult.error != null) {
+                  showCustomDialog(context, errorResult.error!.message);
+                }
+              }
+            });
           },
         ),
       ],
@@ -75,7 +131,7 @@ class CommonAppBar extends StatelessWidget {
           Animation<double> secondaryAnimation) {
         return Dialog(
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
           child: Container(
             width: context.read<ScreenSize>().screenWidth * 0.8,
             height: context.read<ScreenSize>().screenWidth * 0.8,

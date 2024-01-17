@@ -8,12 +8,14 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final FocusNode textFieldFocusNode;
   final LoginPageUIData loginPageUIData;
+  final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
     required this.hintText,
     required this.textFieldFocusNode,
     required this.loginPageUIData,
+    this.controller,
   });
 
   @override
@@ -21,6 +23,7 @@ class CustomTextField extends StatelessWidget {
     return CustomField(
       loginPageUIData: loginPageUIData,
       child: TextField(
+        controller: controller,
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
         ],

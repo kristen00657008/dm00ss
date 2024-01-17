@@ -22,6 +22,8 @@ class TableWidget extends StatefulWidget {
 
 class _TableWidgetState extends State<TableWidget> {
   final StateProvider<int> provider = StateProvider((ref) => 10);
+  final ScrollController _controller = ScrollController();
+  final ScrollController _horizontalController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +47,12 @@ class _TableWidgetState extends State<TableWidget> {
           Consumer(builder: (context, ref, _) {
             return Expanded(
               child: DataTable2(
+                scrollController: _controller,
+                horizontalScrollController: _horizontalController,
                 columnSpacing: 10,
                 horizontalMargin: 15,
                 minWidth: 1100,
                 lmRatio: 1.3,
-                //   columns: [],
-                // rows:[],
                 columns: columnTitles.map((title) {
                   return DataColumn2(
                       label: Center(child: Text(title)),
@@ -96,10 +98,78 @@ class _TableWidgetState extends State<TableWidget> {
                     backgroundColor: widget.themeStyle.backgroundColor,
                   ),
                 ),
+                Spacer(),
+                _ScrollXYButton(_controller, _horizontalController, '↑'),
               ],
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _ScrollXYButton extends StatefulWidget {
+  const _ScrollXYButton(this.controller1, this.controller2, this.title);
+
+  final ScrollController controller1;
+  final ScrollController controller2;
+  final String title;
+
+  @override
+  _ScrollXYButtonState createState() => _ScrollXYButtonState();
+}
+
+class _ScrollXYButtonState extends State<_ScrollXYButton> {
+  bool _showScrollXY = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller1.addListener(() {
+      if (widget.controller2.position.pixels == 0 && widget.controller1.position.pixels == 0 && _showScrollXY) {
+        setState(() {
+          _showScrollXY = false;
+        });
+      } else if(!_showScrollXY) {
+        setState(() {
+          _showScrollXY = true;
+        });
+      }
+    });
+    widget.controller2.addListener(() {
+      if (widget.controller2.position.pixels == 0 && widget.controller1.position.pixels == 0 && _showScrollXY) {
+        setState(() {
+          _showScrollXY = false;
+        });
+      } else if(!_showScrollXY) {
+        setState(() {
+          _showScrollXY = true;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: _showScrollXY ? 1 : 0,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: OutlinedButton(
+          onPressed: () {
+            widget.controller1.animateTo(0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn);
+            widget.controller2.animateTo(0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn);
+          },
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.grey[800]),
+              foregroundColor: MaterialStateProperty.all(Colors.white)),
+          child: Icon(Icons.arrow_back_rounded),
+        ),
       ),
     );
   }

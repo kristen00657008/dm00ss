@@ -1,4 +1,3 @@
-import 'package:dm00ss/bean/query_member/query_member_bean.dart';
 import 'package:dm00ss/ui/member/member_info_page/data/data.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +12,6 @@ class MemberInfoModel {
   factory MemberInfoModel() => _singleton;
 
   late TabController tabController;
-
-  QueryMemberBean? queryMemberBean;
 
   void init(TickerProvider provider) {
     tabController = TabController(

@@ -92,20 +92,16 @@ class _MemberInfoPageState extends ConsumerState<MemberInfoPage>
         return CommonBackgroundView(
           child: EasyRefresh(
             controller: _controller,
-            header:  MaterialHeader(
+            header: MaterialHeader(
               clamping: false,
               position: IndicatorPosition.above,
               triggerOffset: 30,
-              processedDuration: Duration(microseconds: 200)
+              processedDuration: Duration(microseconds: 200),
+              noMoreIcon: Icon(Icons.add)
             ),
+
             onRefresh: () async {
-              MemberRepository().queryMember("DM123349").listen((event) {
-                if(event.isSuccess) {
-                  MemberInfoModel.getInstance().queryMemberBean = event;
-                  setState(() {});
-                }
-                _controller.finishRefresh();
-              });
+
             },
             child: ListWidget(
               themeStyle: themeStyle,

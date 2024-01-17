@@ -6,16 +6,16 @@ part of 'base_result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BaseResult _$BaseResultFromJson(Map<String, dynamic> json) {
-  return BaseResult()
-    ..result = json['Result'] as num? ?? -1
-    ..resultDesc = json['ResultDesc'] as String? ?? ''
-    ..resultCode = json['ResultCode'] as String? ?? '';
-}
+BaseResult _$BaseResultFromJson(Map<String, dynamic> json) => BaseResult()
+  ..statusCode = json['statusCode'] as int?
+  ..error = json['error'] == null
+      ? null
+      : ErrorResultBean.fromJson(json['error'] as Map<String, dynamic>)
+  ..requestId = json['requestId'] as String?;
 
 Map<String, dynamic> _$BaseResultToJson(BaseResult instance) =>
     <String, dynamic>{
-      'Result': instance.result,
-      'ResultDesc': instance.resultDesc,
-      'ResultCode': instance.resultCode,
+      'statusCode': instance.statusCode,
+      'error': instance.error,
+      'requestId': instance.requestId,
     };

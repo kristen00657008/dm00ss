@@ -1,6 +1,11 @@
 import 'dart:convert';
 
-import 'query_member/query_member_bean.dart';
+import 'package:dm00ss/bean/base/base_result.dart';
+import 'package:dm00ss/bean/error/error_bean.dart';
+import 'package:dm00ss/bean/login_org/login_org_bean.dart';
+import 'package:dm00ss/bean/signin/signin_bean.dart';
+
+import 'bwex/bwex_bean.dart';
 
 /// 轉換Bean
 /// flutter pub run build_runner build --delete-conflicting-outputs
@@ -79,5 +84,9 @@ class BeanConverter {
 }
 
 final _factories = <Type, Function(Map<String, dynamic> jsonData)?>{
-  QueryMemberBean: (jsonData) => QueryMemberBean.fromJson(jsonData),
+  SigninBean: (jsonData) => SigninBean.fromJson(jsonData),
+  BaseResult: (jsonData) => BaseResult.fromJson(jsonData),
+  ErrorBean: (jsonData) => ErrorBean.fromJson(jsonData),
+  BWEXBean: (jsonData) => BWEXBean.fromJson(jsonData),
+  LoginOrgBean: (jsonData) => LoginOrgBean.fromJson(jsonData),
 };
