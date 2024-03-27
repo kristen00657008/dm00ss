@@ -1,11 +1,15 @@
 import 'dart:convert';
 
 import 'package:dm00ss/bean/base/base_result.dart';
+import 'package:dm00ss/bean/base_result/base_result_bean.dart';
 import 'package:dm00ss/bean/error/error_bean.dart';
+import 'package:dm00ss/bean/latest_news/latest_news_bean.dart';
 import 'package:dm00ss/bean/login_org/login_org_bean.dart';
+import 'package:dm00ss/bean/menu/menu_bean.dart';
 import 'package:dm00ss/bean/signin/signin_bean.dart';
 
 import 'bwex/bwex_bean.dart';
+import 'code_type/code_type_bean.dart';
 
 /// 轉換Bean
 /// flutter pub run build_runner build --delete-conflicting-outputs
@@ -84,9 +88,13 @@ class BeanConverter {
 }
 
 final _factories = <Type, Function(Map<String, dynamic> jsonData)?>{
-  SigninBean: (jsonData) => SigninBean.fromJson(jsonData),
   BaseResult: (jsonData) => BaseResult.fromJson(jsonData),
+  BaseResultBean: (jsonData) => BaseResultBean.fromJson(jsonData),
   ErrorBean: (jsonData) => ErrorBean.fromJson(jsonData),
+  SigninBean: (jsonData) => SigninBean.fromJson(jsonData),
   BWEXBean: (jsonData) => BWEXBean.fromJson(jsonData),
   LoginOrgBean: (jsonData) => LoginOrgBean.fromJson(jsonData),
+  CodeTypeBean: (jsonData) => CodeTypeBean.fromJson(jsonData),
+  MenuBean: (jsonData) => MenuBean.fromJson(jsonData),
+  LatestNewsBean: (jsonData) => LatestNewsBean.fromJson(jsonData),
 };

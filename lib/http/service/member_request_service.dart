@@ -40,20 +40,62 @@ class MemberRequestService {
   ///
   /// [memberId] 會員ID
   Stream<Response> getBWEX(String accessToken) {
-    return ApiConfig.getInstance().dio.get(
+    return ApiConfig.getInstance()
+        .dio
+        .get(
           ApiPath.BWEX,
           options: Options(
             headers: {'Authorization': 'Bearer $accessToken'},
           ),
-        ).asStream();
+        )
+        .asStream();
   }
 
   /// 取得使用者登入分公司
   ///
   /// [memberId] 會員ID
   Stream<Response> getLoginOrg(String userLogName) {
-    return ApiConfig.getInstance().dio.get(
-      "${ApiPath.LoginOrg}/$userLogName",
+    return ApiConfig.getInstance()
+        .dio
+        .get(
+          "${ApiPath.LoginOrg}/$userLogName",
+        )
+        .asStream();
+  }
+
+  /// 忘記密碼寄送
+  ///
+  /// [userLogName] 會員帳號
+  Stream<Response> userPasswordMail(String userLogName) {
+    return ApiConfig.getInstance().dio.post(
+      ApiPath.userPasswordMail,
+      data: {
+        "UserLogName": userLogName,
+      },
+    ).asStream();
+  }
+
+  /// 使用者密碼修改
+  ///
+  /// [userLogName] 會員帳號
+  /// [oldUserPassword]
+  /// [newUserPassword]
+  Stream<Response> userPasswordModify(
+    String userLogName,
+    String oldUserPassword,
+    String newUserPassword,
+    String accessToken,
+  ) {
+    return ApiConfig.getInstance().dio.post(
+      ApiPath.userPasswordModify,
+      data: {
+        "UserLogName": userLogName,
+        "OldUserPassword": oldUserPassword,
+        "NewUserPassword": newUserPassword,
+      },
+      options: Options(
+        headers: {'Authorization': 'Bearer $accessToken'},
+      ),
     ).asStream();
   }
 }
